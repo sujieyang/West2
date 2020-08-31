@@ -8,7 +8,7 @@
   如有问题请联系QQ：1005309071.
   
 The last round of operation of Xi'an No.2 line
-  This paper implements a system similar to Fzu Fu University Curriculum Center, which is a back-end file. It uses a series of functions such as flash to realize the design of interface and database.
-The interface is divided into student side and teacher side according to the object. Then find out the same part from its requirements and put it into the third simulation object, global object.
-This job is developed by me and another back-end member. I am mainly responsible for the writing of some interfaces, as well as the preparation of deployment and interface documents. He is mainly responsible for some interface writing, database design and Simulation of some test data.
-If you have any questions, please contact QQ: 1005309071
+  This paper implements a system similar to Fzu Fu University Curriculum Center, which is a back-end file. It uses a series of functions such as flash to realize the design of interface and database.The interface is divided into student side and teacher side according to the object. Then find out the same part from its requirements and put it into the third simulation object, global object.This job was developed by me and another back-end member. I was mainly responsible for the writing of some interfaces, deployment testing and interface documentation. He is mainly responsible for some interface writing, database design and Simulation of some test data.
+  
+  Interface document: https://www.showdoc.com.cn/1018761275187179?page_ Id = 5278830570885662, password: 654321
+  If you have any questions, please contact QQ: 1005309071
