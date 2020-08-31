@@ -1,0 +1,3136 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:w="urn:schemas-microsoft-com:office:word"
+    xmlns="http://www.w3.org/TR/REC-html40">
+    <head><meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <style type="text/css">
+        table  
+        {  
+            border-collapse: collapse;
+            border: none;  
+            width: 100%;  
+        }  
+        td,tr  
+        {  
+            border: solid #CCC 1px;
+            padding:3px;
+            font-size:9pt;
+        } 
+        .codestyle{
+            word-break: break-all;
+            mso-highlight:rgb(252, 252, 252);
+            padding-left: 5px; background-color: rgb(252, 252, 252); border: 1px solid rgb(225, 225, 232);
+        }
+        img {
+            width:100;
+        }
+    </style>
+    <meta name=ProgId content=Word.Document>
+    <meta name=Generator content="Microsoft Word 11">
+    <meta name=Originator content="Microsoft Word 11">
+    <xml><w:WordDocument><w:View>Print</w:View></xml></head>
+    <body><h1>1、统一服务器网址</h1><div style="margin-left:20px;"><table width='100%' class='codestyle'><pre><code>47.96.231.121替换http://xx.com</code></pre></table></div><h1>2、globals</h1><div style="margin-left:0px;"><h2>2.1、全局状态码</h2><div style="margin-left:0px;"><table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th>状态码</th>
+<th>message</th>
+<th>参数名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>操作成功</td>
+<td>OPERATION_SUCCESS</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>获取目录信息失败</td>
+<td>SEARCH_CATS_ERROR</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>未找到班级!</td>
+<td>NO_CLASS_FOUND</td>
+</tr>
+<tr>
+<td>1003</td>
+<td>为找到token信息!</td>
+<td>NO_TOKEN</td>
+</tr>
+<tr>
+<td>1004</td>
+<td>无效的token</td>
+<td>INVALID_TOKEN</td>
+</tr>
+<tr>
+<td>1005</td>
+<td>您的会话已过期!</td>
+<td>TOKEN_EXPRIRED</td>
+</tr>
+<tr>
+<td>1006</td>
+<td>该用户不存在!</td>
+<td>NO_USER_FOUND</td>
+</tr>
+<tr>
+<td>1007</td>
+<td>密码错误!</td>
+<td>INCORRECT_PASSWORD</td>
+</tr>
+<tr>
+<td>1008</td>
+<td>参数错误!</td>
+<td>PARAMETERS_ERROR</td>
+</tr>
+<tr>
+<td>1009</td>
+<td>两次密码不一致!</td>
+<td>NOT_SAME_PASSWORD</td>
+</tr>
+<tr>
+<td>1010</td>
+<td>权限不足!</td>
+<td>AUTHORIZATION_ERROR</td>
+</tr>
+</tbody>
+</table></div><h2>2.2、登陆接口</h2><div style="margin-left:0px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回登陆接口接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/auth/login</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">account</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>账号</td>
+</tr>
+<tr>
+<td style="text-align: left;">password</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>密码</td>
+</tr>
+<tr>
+<td style="text-align: left;">is_teacher</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">boolean</td>
+<td>判断是否为老师登陆</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>  #例子
+  {'data':[{'avadar':图像base64流,
+         'name':用户名,
+         'account':账号,
+         'date:日期时间(如'2020-01-01 19:22:44'),
+         'classNum:'课程数量',
+         'token':token信息
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+  # 用户不存在
+    return responseError(Responses.NO_USER_FOUND)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  #密码错误
+    return responseError(Responses.INCORRECT_PASSWORD)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">avadar</td>
+<td style="text-align: left;">string</td>
+<td>头像base流</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">string</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td style="text-align: left;">account</td>
+<td style="text-align: left;">string</td>
+<td>账号</td>
+</tr>
+<tr>
+<td style="text-align: left;">date</td>
+<td style="text-align: left;">string</td>
+<td>返回日期时间</td>
+</tr>
+<tr>
+<td style="text-align: left;">token</td>
+<td style="text-align: left;">string</td>
+<td>返回token信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">classNum</td>
+<td style="text-align: left;">int</td>
+<td>课程数</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h2>2.3、登出接口</h2><div style="margin-left:0px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回讨论区所有讨论帖接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/auth/logout</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul></div><h2>2.1、functions</h2><div style="margin-left:0px;"><h3>2.1.1、返回讨论区所有讨论帖接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回讨论区所有讨论帖接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/get_talkings</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>  #例子:
+  {'data':[{'id':''
+         'title':'',
+         'content':'',
+         'userName:'',
+         'date:'2020-01-01 19:22:44',
+         'replyNum':评论数（int）
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">int</td>
+<td>讨论帖id</td>
+</tr>
+<tr>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">string</td>
+<td>帖标题</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">string</td>
+<td>帖内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">userName</td>
+<td style="text-align: left;">string</td>
+<td>发帖者名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">date</td>
+<td style="text-align: left;">string</td>
+<td>返回日期时间</td>
+</tr>
+<tr>
+<td style="text-align: left;">replyNum</td>
+<td style="text-align: left;">int</td>
+<td>评论数</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul></div><h3>2.1.2、获取该讨论的所有评论</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>获取该讨论的所有评论接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/get_comments</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">talking_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>该讨论贴子的id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>
+  #例子
+  {'data':[{'index':序号(int)
+         'comment_id':'',
+         'content':'',
+         'userName:'',
+         'date:'2020-01-01 19:22:44',
+         'reply_num':
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">index</td>
+<td style="text-align: left;">int</td>
+<td>评论的序号</td>
+</tr>
+<tr>
+<td style="text-align: left;">comment_id</td>
+<td style="text-align: left;">string</td>
+<td>该评论的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">string</td>
+<td>评论内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">userName</td>
+<td style="text-align: left;">string</td>
+<td>评论者名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">date</td>
+<td style="text-align: left;">string</td>
+<td>返回日期时间</td>
+</tr>
+<tr>
+<td style="text-align: left;">reply_num</td>
+<td style="text-align: left;">string</td>
+<td>数量</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.3、删除评论</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>删除评论接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/delete_comments</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">comment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>该条评论id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>  #操作成功
+    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.4、发送回复</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>发送回复接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/send_reply</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">comment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>要回复的评论/回复的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>回复者的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">talkings_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>该讨论贴子的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>回复内容</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>  #操作成功
+      return responseSuccess(Responses.OPERATION_SUCCESS)
+      {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+      return responseError(Responses.PARAMETERS_ERROR)
+      {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.5、获取某条评论的所有回复</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>获取某条评论/回复的所有回复接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/get_replies</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">comment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>该评论id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    #例子:
+  {'data':[{'index':序号(int)
+         'comment_id':回复id,
+         'content':'',
+         "user_id":用户id,
+         'userName:'',
+         'date:'2020-01-01 19:22:44',
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">index</td>
+<td style="text-align: left;">int</td>
+<td>回复编号</td>
+</tr>
+<tr>
+<td style="text-align: left;">comment_id</td>
+<td style="text-align: left;">int</td>
+<td>回复的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">string</td>
+<td>回复内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">userName</td>
+<td style="text-align: left;">string</td>
+<td>回复者名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">date</td>
+<td style="text-align: left;">string</td>
+<td>返回日期时间</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.6、获取视频目录列表</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>获取视频目录列表接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/get_course_list</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>
+  {'data':[{'id':"1-"加上一级目录的id,
+        'name':名字,
+        'num':二级目录的数量,
+        'details':{
+                 'details_id':"2-"加上二级目录id,
+                 'details_name':二级目录名字,
+                 'details_movie':'二级目录视频'
+        }}]，
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #获取目录信息失败：
+    return responseError(Responses.SEARCH_CATS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+ #未找到班级
+    return responseError(Responses.NO_CLASS_FOUND)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">string</td>
+<td>"1-"加上该一级目录的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">string</td>
+<td>一级目录的name</td>
+</tr>
+<tr>
+<td style="text-align: left;">num</td>
+<td style="text-align: left;">int</td>
+<td>该一级目录下的二级目录数目</td>
+</tr>
+<tr>
+<td style="text-align: left;">details</td>
+<td style="text-align: left;">string</td>
+<td>存放该一级目录的二级目录</td>
+</tr>
+<tr>
+<td style="text-align: left;">details_id</td>
+<td style="text-align: left;">string</td>
+<td>"2-"加上该一级目录的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">details_name</td>
+<td style="text-align: left;">string</td>
+<td>二级目录的name</td>
+</tr>
+<tr>
+<td style="text-align: left;">details_movie</td>
+<td style="text-align: left;">string</td>
+<td>二级目录的存放信息的地址</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul></div><h3>2.1.7、*获取所有公告</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回获取所有公告接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/get_notices</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>  #例子
+  {'data':[{
+         'title':'',
+         'contant':'',
+         'notice_id':''
+                }],
+    'message':''
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">string</td>
+<td>讨论区标题</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">string</td>
+<td>讨论区内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">notice_id</td>
+<td style="text-align: left;">int</td>
+<td>讨论区id</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul></div><h3>2.1.8、处理搜索功能</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回处理搜索功能接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/search</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">query</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>查询的信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    {'data':[{
+            'teacher':老师名,
+            'subName':课程名字,
+            'class_id'：课程id
+    }]，
+    'message':'',
+    'status':全局状态码}
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">teacher</td>
+<td style="text-align: left;">string</td>
+<td>老师名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">subName</td>
+<td style="text-align: left;">string</td>
+<td>课程名</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">int</td>
+<td>课程id</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.9、获取班级下的所有作业</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回获取班级下的所有作业接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/get_workList</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    #例子
+    {'data':[{'id':"1-"加上一级目录的id,
+        'name':名字,
+        'num':二级目录的数量,
+        'details':{
+                 'details_isdone':是否完成，
+                 'details_name':二级目录名字,
+                 'details_id':'作业id'
+        }}]，
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">int</td>
+<td>一级目录id</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">string</td>
+<td>一级目录的name</td>
+</tr>
+<tr>
+<td style="text-align: left;">details</td>
+<td style="text-align: left;">boolean</td>
+<td>该一级目录下的二级目录的细节</td>
+</tr>
+<tr>
+<td style="text-align: left;">details_isdone</td>
+<td style="text-align: left;">boolean</td>
+<td>是否完成作业</td>
+</tr>
+<tr>
+<td style="text-align: left;">details_id</td>
+<td style="text-align: left;">int</td>
+<td>作业的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">details_name</td>
+<td style="text-align: left;">string</td>
+<td>作业标题</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul></div><h3>2.1.10、上传头像</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回讨论区所有讨论帖接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/update_face</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_face</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>base流</td>
+</tr>
+<tr>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>图片格式</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    Users.append({
+            "user_name": user.username,
+            "avatar": avatar_base64_str,
+            "total_study": user.total_study
+        })
+    return responseBody(data=Users)
+    #例子:
+  {'data':[{'user_name':'',
+         'avatar':'base64流',
+         'total_study':总学习时长,
+         'type':图像格式
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_name</td>
+<td style="text-align: left;">string</td>
+<td>用户名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">avatar</td>
+<td style="text-align: left;">string</td>
+<td>头像base流</td>
+</tr>
+<tr>
+<td style="text-align: left;">total_study</td>
+<td style="text-align: left;">int</td>
+<td>总时长</td>
+</tr>
+<tr>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">string</td>
+<td>头像格式</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.11、修改密码</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回修改密码接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/update_password</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">old_password</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>旧密码</td>
+</tr>
+<tr>
+<td style="text-align: left;">new_password1</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>新密码</td>
+</tr>
+<tr>
+<td style="text-align: left;">new_password2</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>新密码</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    # 密码不等
+    return responseError(Responses.INCORRECT_PASSWORD)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    # 两次密码不一致
+    return responseError(Responses.NOT_SAME_PASSWORD)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    #成功
+    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.12、发布讨论</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>发布讨论帖子接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/post_discussion</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>发帖子的人的id</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">int</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>帖子标题</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>帖子内容</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>  #操作成功
+    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.13、获取某一条作业接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回获取某一条作业接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/get_work</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">assignment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>作业id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseBody(data=work_base64_str)
+        {'data':图片base64流，
+         'message':'',
+         'status':全局状态码}
+  or
+  #未知参数报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #未找到记录
+    return responseError(Responses.NO_RECORD_FOUND)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">data</td>
+<td style="text-align: left;">字典</td>
+<td>存放信息</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>2.1.14、删除讨论接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回删除章节接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/del_talking</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">talking_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>讨论区id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    message:'',
+    status:全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    message:'',
+    status:全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div></div></div><h1>3、student</h1><div style="margin-left:0px;"><h2>3.1、course</h2><div style="margin-left:0px;"><h3>3.1.1、作业提交接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回作业提交接口接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/std/submit_work</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">assignment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>作业id</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>提交内容</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>|参数名|类型|说明|
+无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>3.1.2、获取用户提交内容接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回获取用户提交内容接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/std/get_submit</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">assignment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>作业id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    {
+    'data':[{'content':内容,
+           'update_time':提交日期时间
+        }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">string</td>
+<td>提交内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">update_time</td>
+<td style="text-align: left;">string</td>
+<td>最新提交日期时间</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div></div><h2>3.2、user</h2><div style="margin-left:0px;"><h3>3.2.1、获取用户未读信息（课程+作业）</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回获取用户未读信息（课程+作业）接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/std/get_unread</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    #例子:
+  {'data':[{'readingClassNum':未读条数(int)
+         'classNameList':[{'name':课程名字}],
+         'messageNum':作业数,
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">readingClassNum</td>
+<td style="text-align: left;">int</td>
+<td>未读课程条数</td>
+</tr>
+<tr>
+<td style="text-align: left;">classNameList</td>
+<td style="text-align: left;">一个存放具体未读课程的对象的列表(类似{"name": '语文'})</td>
+<td>具体信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">messageNum</td>
+<td style="text-align: left;">int</td>
+<td>未读作业条数</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>3.2.2、获取用户主页信息</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回获取用户主页信息接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/std/get_classes</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>
+    #例子:
+  {'data':[{'teacher':老师名字,
+         'subName':课程名字,
+         'class_id':课程id,
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">teacher</td>
+<td style="text-align: left;">string</td>
+<td>老师名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">subName</td>
+<td style="text-align: left;">string</td>
+<td>课程名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>3.2.3、个人中心页面</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回个人中心页面信息接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/std/get_messages</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    #例子:
+  {'data':[{'user_info':[{
+                      'user_name':用户名，
+                        'avatar':图像base64流,
+                        'total_study':总学习时长,
+                        'login_date':登陆日期时间,
+                        'class_count':课程数量，
+                        'type':图片格式
+                        }],
+         'classes_info':[{
+                         'teacher':老师名字,
+                         'subName':课程名字,
+                         'class_id':课程id
+                         }]
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">teacher</td>
+<td style="text-align: left;">string</td>
+<td>老师名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">subName</td>
+<td style="text-align: left;">string</td>
+<td>课程名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">int</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_name</td>
+<td style="text-align: left;">string</td>
+<td>用户名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">avatar</td>
+<td style="text-align: left;">string</td>
+<td>头像base流，会默认传默认头，如果没上传过</td>
+</tr>
+<tr>
+<td style="text-align: left;">total_study</td>
+<td style="text-align: left;">int</td>
+<td>学习时长</td>
+</tr>
+<tr>
+<td style="text-align: left;">login_date</td>
+<td style="text-align: left;">int</td>
+<td>当前登陆日期时间</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_count</td>
+<td style="text-align: left;">int</td>
+<td>课程数量</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_info</td>
+<td style="text-align: left;">列表</td>
+<td>存放user信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">classes_info</td>
+<td style="text-align: left;">列表</td>
+<td>存放课程信息</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div></div></div><h1>4、teacher</h1><div style="margin-left:0px;"><h2>4.1、user</h2><div style="margin-left:0px;"><h3>4.1.1、个人页面中心接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回讨论区所有讨论帖接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/get_messages</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    #例子:
+  {'data':[{'user_info':[{
+                        'user_name':用户名，
+                        'avatar':图像base64流,
+                        'login_date':登陆日期时间,
+                        'class_count':课程数量,
+                        'type':图片格式
+                          }],
+         'classes_info':[{
+                          'teacher':老师名字,
+                         'subName':课程名字,
+                         'class_id':课程id
+                         }]
+                }],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">teacher</td>
+<td style="text-align: left;">string</td>
+<td>老师名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">subName</td>
+<td style="text-align: left;">string</td>
+<td>课程名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">int</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_name</td>
+<td style="text-align: left;">string</td>
+<td>用户名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">avatar</td>
+<td style="text-align: left;">string</td>
+<td>头像base流，会默认传默认头，如果没上传过</td>
+</tr>
+<tr>
+<td style="text-align: left;">login_date</td>
+<td style="text-align: left;">int</td>
+<td>当前登陆日期时间</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_count</td>
+<td style="text-align: left;">int</td>
+<td>课程数量</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_info</td>
+<td style="text-align: left;">列表</td>
+<td>存放user信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">classes_info</td>
+<td style="text-align: left;">列表</td>
+<td>存放课程信息</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul></div></div><h2>4.2、course</h2><div style="margin-left:0px;"><h3>4.2.1、发送公告接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回发送公告接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/post_notices</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>公告标题</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>公告内容</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    or
+      return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>4.2.2、删除公告接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回讨论区所有讨论帖接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/del_notice</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">notice_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>公告id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    or
+      return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>4.2.3、创建新章节接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回讨论区所有讨论帖接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/create_fc</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>插入的章节标题</td>
+</tr>
+<tr>
+<td style="text-align: left;">before</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>若before为"front"，则在最前加入,若before不为空，则在指定位置后插入,若before为"last",则在最后加入</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>4.2.4、删除章节接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回删除章节接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/del_fc</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">fc_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>章节id (fc_id 是 1-XX 的形式)</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>4.2.5、重命名章节接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回重命名章节接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/rename_fc</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">fc_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>章节id (fc_id 是 1-XX 的形式)</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>新的章节名字</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！</p></div><h3>4.2.6、添加小章节/添加视频接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回删除章节接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/create_sc</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>标题</td>
+</tr>
+<tr>
+<td style="text-align: left;">file</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">文件</td>
+<td>添加视频或者添加小章节</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.2.7、删除小章节接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回删除小章节接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/del_sc</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">sc_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>章节id (sc_id 是 2-XX 的形式)</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.2.8、重命名小章节接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回重命名小章节接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/rename_sc</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">sc_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>章节id (sc_id 是 2-XX 的形式)</td>
+</tr>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>新的章节姓名</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.2.9、上传作业图片,通过base64保存接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回上传作业图片,通过base64保存接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/submit_work</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>作业title</td>
+</tr>
+<tr>
+<td style="text-align: left;">sc_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>章节id (sc_id 是 2-XX 的形式)</td>
+</tr>
+<tr>
+<td style="text-align: left;">answer</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>选项答案</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'data':[{'work_img':'base64流'}],
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.2.10、重命名作业接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回重命名作业接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/rename_work</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>新的作业名字</td>
+</tr>
+<tr>
+<td style="text-align: left;">assignment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>作业id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.2.11、删除作业接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回删除作业接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/del_work</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">assignment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>作业id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.2.12、获取提交作业内容</h3><div style="margin-left:30px;"><h5>简要描述</h5>
+<ul>
+<li>返回获取提交作业内容接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/tech/get_assignment_submit</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">assignment_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>作业id</td>
+</tr>
+<tr>
+<td style="text-align: left;">index</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>index表示要获取第几个提交内容,若不传则获取所有</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    #返回所有
+    {'data':[{
+            total_num:提交内容个数
+            details:[
+            {
+                from_user : 提交用户
+                content:提交内容
+            },
+            ...
+            ]
+        }]，
+    message:'',
+    status:全局状态码
+    }
+    #返回某条提交内容
+    {'data':[{
+            total_num:提交内容个数
+            detail:
+            {
+                from_user : 提交用户
+                content:提交内容
+            }
+        }]，
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">total_num</td>
+<td style="text-align: left;">int</td>
+<td>提交内容个数</td>
+</tr>
+<tr>
+<td style="text-align: left;">from_user</td>
+<td style="text-align: left;">string</td>
+<td>提交用户</td>
+</tr>
+<tr>
+<td style="text-align: left;">content</td>
+<td style="text-align: left;">string</td>
+<td>提交内容</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div></div><h2>4.3、manage</h2><div style="margin-left:0px;"><h3>4.3.1、班级管理主页</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回班级管理主页接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/manage/class_management</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    {'data':[{
+            'avatar':头像base流,
+            'classes_message':[{
+                                'subName': 课程名,
+                                'class_id': 课程id,
+                                'num': 学生数
+            }]
+    }]，
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">avatar</td>
+<td style="text-align: left;">string</td>
+<td>base流</td>
+</tr>
+<tr>
+<td style="text-align: left;">classes_message</td>
+<td style="text-align: left;">列表</td>
+<td>存放班级信息</td>
+</tr>
+<tr>
+<td style="text-align: left;">subName</td>
+<td style="text-align: left;">string</td>
+<td>课程名</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">int</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">num</td>
+<td style="text-align: left;">int</td>
+<td>学生数量</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.3.2、班级人数管理接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回班级人数管理接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/manage/class_num_management</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    {'data':[{
+            'user_id': 学生id,
+            'account': 学生学号(账号),
+            'username': 学生名字
+    }]，
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+</code></pre></table>
+<h5>返回参数说明</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">int</td>
+<td>学生id</td>
+</tr>
+<tr>
+<td style="text-align: left;">account</td>
+<td style="text-align: left;">string</td>
+<td>学生学号(账号)</td>
+</tr>
+<tr>
+<td style="text-align: left;">username</td>
+<td style="text-align: left;">string</td>
+<td>学生名字</td>
+</tr>
+</tbody>
+</table>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.3.3、删除选中学生接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回删除选中学生接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/manage/del_selected_stds</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">selected_stds</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">列表</td>
+<td>要删除的学生id列表</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.3.4、添加单个班级成员接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回添加单个班级成员接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/manage/add_single_std</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">account</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>学生账号(学号)</td>
+</tr>
+<tr>
+<td style="text-align: left;">username</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>学生姓名</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.3.5、申请新班级接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回申请新班级接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/manage/apply_class</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_name</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程名</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_info</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程简介</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div><h3>4.3.6、解散班级接口</h3><div style="margin-left:30px;"><p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p>
+<h5>简要描述</h5>
+<ul>
+<li>返回解散班级接口</li>
+</ul>
+<h5>请求URL</h5>
+<ul>
+<li><code>http://xx.com/manage/close_class</code></li>
+</ul>
+<h5>请求方式</h5>
+<ul>
+<li>POST </li>
+</ul>
+<h5>接收参数</h5>
+<table>
+<thead><tr style='background-color: rgb(0, 136, 204); color: rgb(255, 255, 255);'>
+<th style="text-align: left;">参数名</th>
+<th style="text-align: left;">必选</th>
+<th style="text-align: left;">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">user_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>用户id</td>
+</tr>
+<tr>
+<td style="text-align: left;">class_id</td>
+<td style="text-align: left;">是</td>
+<td style="text-align: left;">string</td>
+<td>课程id</td>
+</tr>
+</tbody>
+</table>
+<h5>返回示例</h5>
+<table width='100%' class='codestyle'><pre><code>    return responseSuccess(Responses.OPERATION_SUCCESS)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+  or
+  #报错:
+    return responseError(Responses.PARAMETERS_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }
+    return responseError(Responses.AUTHORIZATION_ERROR)
+    {
+    'message':'',
+    'status':全局状态码
+    }</code></pre></table>
+<h5>返回参数说明</h5>
+<p>无</p>
+<h5>备注</h5>
+<ul>
+<li>更多返回状态代码请看global目录里的状态码描述</li>
+</ul>
+<p>欢迎使用ShowDoc！欢迎使用ShowDoc！</p></div></div></div></body></html>
