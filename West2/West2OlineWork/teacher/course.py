@@ -1,7 +1,7 @@
 import base64
 import datetime
 
-from flask import Blueprint, request, url_for
+from flask import Blueprint, request, url_for,session
 from flask_dropzone import random_filename
 import os
 
@@ -169,18 +169,21 @@ def rename_fc():
 @t_course.route("/create_sc", methods=["POST"])
 def create_sc():
     try:
-        data = request.get_json()
-        title = data.get("title")
+        title=session.get("title")
+        fc_id=session.get("fc_id")
+        #title="测试"
+        #fc_id='1-3'
         # 接受视频文件
         movie_file = request.files.get("file")
         # 生成随机文件名
         filename = random_filename(movie_file.filename)
         # 生成文件保存路径
-        save_path = '/%s' %filename
+        save_path = '%s' %filename
+        Path='/py3env/West2/West2OlineWork/static/movies/%s'%filename
         # 保存文件
-        movie_file.save(save_path)
+        movie_file.save(Path)
         # 该视频属于的大章节
-        fc_id = data.get("fc_id")
+        #fc_id = str(dataDict.get("fc_id"))
         fc_id = int(fc_id.split("-")[1])
         # 构造二级目录
         new_sc = SecondCategory(name=title, parent_category_id=fc_id, movie=save_path)
@@ -241,23 +244,27 @@ def submit_work():
         data = request.get_json()
         title = data.get("title")
         sc_id = data.get("sc_id")
-        # 获取选择题答案
-        answer = data.get("answer")
         sc_id = int(sc_id.split("-")[1])
-        # 要上传的作业图片base64编码
-        work_img_base64 = data.get("work_img")
-        work_id = max([a.id for a in Assignment.query.all()]) + 1
-        work_path = '/py3env/West2/West2OlineWork/static/works/%s.jpg'%str(work_id)
-        with open(work_path, 'wb') as w:
-            w.write(base64.b64decode(work_img_base64))
-        # 获得修改后的头像的base64编码
-        with open(work_path, 'rb') as f:
-            stream = base64.b64encode(f.read())
-            work_base64_str = str(stream, encoding='utf-8')
-        assignment = Assignment(title=title, content=work_path, belong_category_id=sc_id, answer=answer)
+        imgs_arr = data.get("imgs")
+        content = data.get("content")
+        class_id=int(data.get("class_id"))
+        save_content = content
+        if len(imgs_arr) != 0:
+            for img in imgs_arr:
+                # 要上传的作业图片base64编码
+                work_id = max([a.id for a in Assignment.query.all()]) + 1
+                file_name = random_filename('works/%s.jpg' % str(work_id))
+                # 保存路径
+                work_path = "47.96.231.121/works/" + file_name
+                # 动态拼接字符串
+                save_content += "|%s" % file_name
+                with open(work_path, 'wb') as w:
+                    # 将作业图片保存到文件夹
+                    w.write(base64.b64decode(img[23:]))
+        assignment = Assignment(title=title, content=save_content, belong_category_id=sc_id,belong_class_id=class_id)
         db.session.add(assignment)
         db.session.commit()
-        return responseBody(data=[{"work_img": work_base64_str}])
+        return responseSuccess(Responses.OPERATION_SUCCESS)
     except Exception as e:
         print(e)
         db.session.rollback()
@@ -270,9 +277,12 @@ def rename_work():
     try:
         data = request.get_json()
         name = data.get("name")
-        assignment_id = int(data.get("assignment_id"))
-        assign = Assignment.query.get(assignment_id)
-        assign.name = name
+        assignment_id = data.get("assignment_id")
+        sc_id = int(assignment_id.split("-")[1])
+        sc = SecondCategory.query.get(sc_id)
+        assign = sc.assignment
+        assign = assign[0]
+        assign.title = name
         db.session.commit()
         return responseSuccess(Responses.OPERATION_SUCCESS)
     except Exception as e:
@@ -286,16 +296,20 @@ def rename_work():
 def del_work():
     try:
         data = request.get_json()
-        assignment_id = int(data.get("assignment_id"))
-        assign = Assignment.query.get(assignment_id)
-        os.remove(assign.content)
-        db.session.delete(assign)
-        db.session.commit()
+        assignment_id = data.get("assignment_id")
+        sc_id = int(assignment_id.split("-")[1])
+        sc = SecondCategory.query.get(sc_id)
+        assign = sc.assignment
+        for a in assign:
+            db.session.delete(a)
+            db.session.commit()
         return responseSuccess(Responses.OPERATION_SUCCESS)
     except Exception as e:
         print(e)
         db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
+
+
 
 
 # 获取某个作业的所有提交内容
@@ -308,10 +322,11 @@ def get_assignment_submit():
         # index表示要获取第几个提交内容,若不传则获取所有
         require_index = data.get("index")
         assign = Assignment.query.get(assignment_id)
+        found_classes = Class.query.get(assign.belong_class_id)
         # 先获取到所有提交内容
         fss = assign.finish_status
         response_info = []
-        temp = {"total_num": len(fss)}
+        temp = {"total_num": len(fss), "stds_num": len(found_classes.stds)}
         if require_index is None:
             # 提交总数
             details = []
@@ -319,22 +334,29 @@ def get_assignment_submit():
                 details.append({
                     "id": fs.id,
                     "from_user": fs.finish_user.username,
-                    "content": fs.finish_content
+                    "content": fs.finish_content,
+                    "submit_time": datetime.datetime.strftime(fs.finish_time, "%Y-%m-%d %H:%M:%S"),
+                    "score": fs.score,
+                    "checkState": fs.is_correct
                 })
-                temp["details"] = details
+            temp["details"] = details
         else:
             # 获取单个,index从0开始
             single_fs = fss[int(require_index)]
-            temp["detail"] = {
+            temp["detail"] = [{
                 "id": single_fs.id,
                 "from_user": single_fs.finish_user.username,
-                "content": single_fs.finish_content
-            }
+                "content": single_fs.finish_content,
+                "submit_time": datetime.datetime.strftime(single_fs.finish_time, "%Y-%m-%d %H:%M:%S"),
+                "score": single_fs.score,
+                "checkState": single_fs.is_correct
+            }]
         response_info.append(temp)
         return responseBody(data=response_info)
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
+
 
 
 # 批改作业（为某一份作业添加成绩）
@@ -384,5 +406,21 @@ def get_statistical_data():
 
         }])
     except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+
+@t_course.route("/save_scdata", methods=["POST"])
+def save_scdata():
+    try:
+        data = request.get_json()
+        fc_id = data.get("fc_id")
+        title = data.get("title")
+        session["fc_id"] = fc_id
+        session["title"] = title
+        return responseSuccess(Responses.OPERATION_SUCCESS)
+    except Exception as e:
+        session["fc_id"] = None
+        session["title"] = None
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)

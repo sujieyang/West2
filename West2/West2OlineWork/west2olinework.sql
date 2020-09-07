@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 31/08/2020 11:55:21
+ Date: 05/09/2020 14:11:32
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `assignment`  (
   INDEX `belong_class_id`(`belong_class_id`) USING BTREE,
   CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`belong_category_id`) REFERENCES `second_category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `assignment_ibfk_2` FOREIGN KEY (`belong_class_id`) REFERENCES `class` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of assignment
@@ -176,7 +176,7 @@ CREATE TABLE `comments`  (
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`from_user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`belong_talking_id`) REFERENCES `talkings` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `comments_ibfk_3` FOREIGN KEY (`replied_id`) REFERENCES `comments` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of comments
@@ -271,7 +271,42 @@ CREATE TABLE `finish_status`  (
   INDEX `finish_user_id`(`finish_user_id`) USING BTREE,
   CONSTRAINT `finish_status_ibfk_1` FOREIGN KEY (`assignment_id`) REFERENCES `assignment` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `finish_status_ibfk_2` FOREIGN KEY (`finish_user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of finish_status
+-- ----------------------------
+INSERT INTO `finish_status` VALUES (1, 6, 36, '<p>哈哈哈</p>', '2020-09-05 06:10:24', 0, 0);
+INSERT INTO `finish_status` VALUES (2, 34, 42, '<p>哈哈哈</p>', '2020-09-05 06:10:24', 0, 0);
+INSERT INTO `finish_status` VALUES (3, 39, 42, '<p>哈哈哈</p>', '2020-09-05 06:10:24', 0, 0);
+INSERT INTO `finish_status` VALUES (4, 10, 35, '<p>哈哈哈</p>', '2020-09-05 06:10:24', 0, 0);
+INSERT INTO `finish_status` VALUES (5, 28, 40, '<p>哈哈哈</p>', '2020-09-05 06:10:24', 0, 0);
+INSERT INTO `finish_status` VALUES (6, 2, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (7, 5, 47, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (8, 12, 47, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (9, 14, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (10, 16, 39, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (11, 20, 39, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (12, 23, 47, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (13, 25, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (14, 31, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (15, 33, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (16, 36, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (17, 37, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (18, 40, 41, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (19, 1, 34, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (20, 3, 45, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (21, 4, 45, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (22, 8, 45, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (23, 9, 45, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (24, 17, 45, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (25, 21, 34, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (26, 26, 34, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (27, 29, 34, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (28, 35, 45, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (29, 18, 37, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (30, 22, 43, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
+INSERT INTO `finish_status` VALUES (31, 32, 43, '<p>哈哈哈</p>', '2020-09-05 06:10:25', 0, 0);
 
 -- ----------------------------
 -- Table structure for first_category
@@ -286,7 +321,7 @@ CREATE TABLE `first_category`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `belong_class_id`(`belong_class_id`) USING BTREE,
   CONSTRAINT `first_category_ibfk_1` FOREIGN KEY (`belong_class_id`) REFERENCES `class` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of first_category
@@ -325,7 +360,7 @@ CREATE TABLE `notices`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `belong_class_id`(`belong_class_id`) USING BTREE,
   CONSTRAINT `notices_ibfk_1` FOREIGN KEY (`belong_class_id`) REFERENCES `class` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of notices
@@ -364,7 +399,7 @@ CREATE TABLE `second_category`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parent_category_id`(`parent_category_id`) USING BTREE,
   CONSTRAINT `second_category_ibfk_1` FOREIGN KEY (`parent_category_id`) REFERENCES `first_category` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of second_category
@@ -426,7 +461,7 @@ CREATE TABLE `talkings`  (
   INDEX `publish_user_id`(`publish_user_id`) USING BTREE,
   CONSTRAINT `talkings_ibfk_1` FOREIGN KEY (`belong_class_id`) REFERENCES `class` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `talkings_ibfk_2` FOREIGN KEY (`publish_user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of talkings

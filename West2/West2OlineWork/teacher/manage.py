@@ -4,9 +4,11 @@ from West2OlineWork.app import db
 from West2OlineWork.globals.models import User, Class
 from West2OlineWork.globals.responses import Responses
 from West2OlineWork.globals.utils import responseError, responseBody, responseSuccess
-
+from faker import Faker
 manage = Blueprint("manage", __name__, url_prefix="/manage")
 
+
+faker = Faker()
 
 # 班级人数管理
 @manage.route("/class_num_management", methods=["POST"])
@@ -77,7 +79,7 @@ def class_management():
             classes_message.append({
                 'subName': c.class_name,
                 'class_id': c.id,
-                'num': len(c.stds)
+                'num': len(c.stds)-1
             })
         Message[0]["classes_message"] = classes_message
         return responseBody(data=Message)
@@ -90,38 +92,43 @@ def class_management():
 @manage.route("/add_single_std", methods=["POST"])
 def add_single_std():
     try:
-        data = request.get_json()
-        user_id = int(data.get("user_id"))
-        class_id = int(data.get("class_id"))
-        # 用户账号
-        account = data.get("account")
-        # 用户名
-        username = data.get("username")
+        addNew = request.get_json()
+        user_id = int(addNew["user_id"])
+        class_id = int(addNew["class_id"])
+        init_password = addNew.get("init_password", "2020")
         user = User.query.filter_by(id=user_id).first()
         if not user.is_teacher:
             return responseError(Responses.AUTHORIZATION_ERROR)
         classes = Class.query.get(class_id)
-        u = User.query.filter_by(account=account, username=username)
-        # 若要添加的学生不存在则添加进User表后再加入班级
-        if u is None:
-            new_user = User(account=account,username=username)
-            # 初始密码可设置
-            new_user.set_password("2020")
-            db.session.add(new_user)
-            # 先插入用户
-            db.session.commit()
-            found_user = User.query.filter_by(account=account, username=username)
-            # 在加入班级关联
-            classes.stds.append(found_user)
-            db.session.commit()
-        else:
-            classes.stds.append(u)
-            db.session.commit()
+        if classes is None:
+            return responseError(Responses.NO_CLASS_FOUND)
+        newStds = addNew.get("add_new")
+        for std in newStds:
+            account = std["account"]
+            username = std["username"]
+
+            u = User.query.filter_by(account=account).first()
+            # 若要添加的学生不存在则添加进User表后再加入班级
+            if u is None:
+                new_user = User(account=account, username=username,mobile = faker.phone_number(),email=faker.email())
+                # 初始密码可设置
+                new_user.set_password(init_password)
+                db.session.add(new_user)
+                # 先插入用户
+                db.session.commit()
+                found_user = User.query.filter_by(account=account, username=username)
+                # 在加入班级关联
+                classes.stds.append(found_user)
+                db.session.commit()
+            else:
+                classes.stds.append(u)
+                db.session.commit()
         return responseSuccess(Responses.OPERATION_SUCCESS)
     except Exception as e:
         print(e)
         db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
+
 
 
 # 申请新班级

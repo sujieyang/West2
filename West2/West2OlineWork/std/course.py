@@ -29,7 +29,7 @@ def submit_work():
         if fs is not None:
             # 存在提交记录则更新内容和提交时间
             fs.finish_content = content
-            fs.finish_time = datetime.datetime.utcnow
+            fs.finish_time = datetime.datetime.utcnow()
         else:
             # 否则构造提交记录并插入
             fs = FinishStatus(assignment_id=assignment_id, finish_user_id=user_id, finish_content=content)

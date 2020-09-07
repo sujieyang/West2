@@ -13,6 +13,43 @@ from West2OlineWork.globals.responses import Responses
 functions = Blueprint("functions", __name__)
 
 
+# 获取最新的课程和作业，最多返回三条
+@functions.route("/latest_courses_assigns", methods=["POST"])
+def latest_courses_assigns():
+    try:
+        data = request.get_json()
+        class_id = int(data.get("class_id"))
+        found_class = Class.query.get(class_id)
+        # 排序获得课程列表
+        Scs = SecondCategory.query.with_parent(found_class).order_by(SecondCategory.add_time.desc()).all()
+        # 排序获得作业列表
+        assigns = Assignment.query.with_parent(found_class).order_by(Assignment.publish_date.desc()).all()
+
+        response_info = {}
+
+        S_end = 3 if len(Scs) >= 3 else len(Scs)
+        A_end = 3 if len(assigns) >= 3 else len(assigns)
+        S_details = []
+        A_details = []
+        if Scs != [] and assigns != []:
+            for sc in Scs[:S_end]:
+                A_details.append({
+                    "course_id": sc.id,
+                    "course_name": sc.name
+                })
+            for a in assigns[:A_end]:
+                S_details.append({
+                    "assign_id": a.id,
+                    "assign_name": a.title
+                })
+        response_info["course"] = S_details
+        response_info["assign"] = A_details
+        return responseBody(data=response_info)
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+
 # 获取目录列表
 @functions.route("/get_course_list", methods=["POST"])
 def get_course_list():
@@ -131,6 +168,8 @@ def get_work_list():
         user_class = Class.query.get(class_id)
         # 获取该班级下的所有大章节链表表头
         first_cat = FirstCategory.query.with_parent(user_class).filter_by(is_first_category=True).first()
+        if first_cat is None:
+            return responseBody(data=[])
         response_info = []
         # 循环到最后一个章节之前
         while first_cat.next_category_id != 0:
@@ -146,7 +185,7 @@ def get_work_list():
                 assignment = sc.assignment
                 if len(assignment) != 0:
                     # 查看用户是否完成该作业
-                    assignment = assignment[0]
+                    assignment = assignment[-1]
                     record = FinishStatus.query.filter_by(assignment_id=assignment.id, finish_user_id=user_id).first()
                     if record is None:
                         is_done = False
@@ -174,7 +213,7 @@ def get_work_list():
             assignment = sc.assignment
             if len(assignment) != 0:
                 # 查看用户是否完成该作业
-                assignment = assignment[0]
+                assignment = assignment[-1]
                 record = FinishStatus.query.filter_by(assignment_id=assignment.id, finish_user_id=user_id).first()
                 if record is None:
                     is_done = False
@@ -192,7 +231,7 @@ def get_work_list():
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
-
+        
 
 # 获取某一条作业
 @functions.route("/get_work", methods=["POST"])
@@ -203,14 +242,26 @@ def get_work():
         assign = Assignment.query.get(assignment_id)
         if assign is None:
             return responseError(Responses.NO_RECORD_FOUND)
-        work_img_path = "47.96.231.121/works/" + assign.content
-        with open(work_img_path, 'rb') as f:
-            stream = base64.b64encode(f.read())
-            work_base64_str = str(stream, encoding='utf-8')
-        return responseBody(data=work_base64_str)
+        content_info = assign.content.split("|")
+        work_title = assign.title
+        work_content = content_info[0]
+        imgs = []
+        if len(content_info) > 1:
+            for img_url in content_info[1:]:
+                work_img_path = "47.96.231.121/works/" + img_url
+                with open(work_img_path, 'rb') as f:
+                    stream = base64.b64encode(f.read())
+                    work_base64_str = str(stream, encoding='utf-8')
+                    imgs.append(work_base64_str)
+        return responseBody(data={
+            "title": work_title,
+            "content": work_content,
+            "imgs": imgs
+        })
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
+
 
 
 
@@ -324,7 +375,7 @@ def send_comment():
         user_id = int(data.get("user_id"))
         talking_id = int(data.get("talking_id"))
         content = data.get("content")
-        comment = Comments(content=content, from_user_id=user_id, talking_id=talking_id, replied_id=None,
+        comment = Comments(content=content, from_user_id=user_id, belong_talking_id=talking_id, replied_id=None,
                            is_reply=False)
         db.session.add(comment)
         db.session.commit()
@@ -333,6 +384,7 @@ def send_comment():
         print(e)
         db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
+
 
 
 # 删除评论
